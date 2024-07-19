@@ -29,6 +29,7 @@ s1 and s2 consist of lowercase English letters.
 """
 
 # method 1
+# linear time
 def checkInclusion(s1,s2):
     # if length of s1 is greater than s2, then s1 cant be substring of s2
     if len(s1) > len(s2):
@@ -58,4 +59,16 @@ def checkInclusion(s1,s2):
 
     return False
 
-print(checkInclusion(s1 = "ab", s2 = "eidboaoo"))
+# method 2
+# O(mxnxlogm)
+def checkInclusion2(s1, s2):
+    if len(s1) > len(s2):
+        return False
+
+    s1 = sorted(s1)
+
+    for i in range(len(s2)-len(s1)+1):
+        if s1 == sorted(s2[i:i+len(s1)]):
+            return True
+    return False
+print(checkInclusion2(s1 = "ab", s2 = "eidboaoo"))
