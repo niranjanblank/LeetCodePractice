@@ -41,21 +41,6 @@ class TreeNode:
         self.left = left
         self.right = right
 
-# def dfs(node, maxSoFar):
-#     if not node:
-#         return 0
-#     if node.val >= maxSoFar:
-#         good = 1
-#     else:
-#         good = 0
-#     maxSoFar = max(node.val, maxSoFar)
-#     good += dfs(node.left, maxSoFar)
-#     good += dfs(node.right, maxSoFar)
-#     return good
-#
-# def goodNodes(root):
-#     return dfs(root, root.val)
-
 
 # Helper function to build the tree from a list
 def buildTree(values):
@@ -91,6 +76,28 @@ def dfs(node, maxSoFar):
     good += dfs(node.right, maxSoFar)
 
     return good
+
+class Solution:
+    def goodNodes(self, root: TreeNode) -> int:
+        def dfs(curr, maxVal):
+            if not curr:
+                return 0
+
+            # consider the node good if its val is greater or equal to maxval found so far
+            # if node is good, set res = 1, indicating the current node is good
+            res = 1 if curr.val >= maxVal else 0
+            # update the maxVal
+            maxVal = max(curr.val, maxVal)
+            # find the good nodes in the subtrees and add them to res
+            res += dfs(curr.left, maxVal)
+            res += dfs(curr.right, maxVal)
+
+            # after all the traversal is done, res indicates the number of good nodes
+            return res
+
+        return dfs(root, root.val)
+
+
 print(goodNodes(tree1))
 
 
