@@ -50,4 +50,21 @@ def canJump(nums):
     # If we exit the loop without having reached or exceeded the last index, return False
     return False
 
+
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        # setting the currernt goal to be the last item's index
+        current_goal = len(nums) - 1
+
+        #  we start from last index, if we can reach the current_gaol from
+        # the index in the current loop, we change the current_goal to current index
+        # as it is pretty pretty much guararnteed we can rearh the end from currernt index
+        for i in range(len(nums) - 1, -1, -1):
+            # checking if we can reach the goal from current position using its value
+            if i + nums[i] >= current_goal:
+                current_goal = i
+
+        return current_goal == 0
+
 print(canJump([3,2,1,0,4]))
+
