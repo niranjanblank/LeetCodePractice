@@ -45,3 +45,26 @@ def lengthOfLongestSubstring(s):
         charSet.add(s[right])
         res = max(res, right - left + 1)
     return res
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        # this pointer will be used for checking repeating char
+        left = 0
+        # the unique characters will be saved here
+        char = set()
+
+        # current max
+        max_length = 0
+
+        # now we slide our right pointer
+        for right in s:
+            # if char at right is already in the window, we remove all the character upto it (i.e. from left) and update out pointer
+            while right in char:
+                char.remove(s[left])
+                left += 1
+            # add this to the currrent window of char
+            char.add(right)
+            max_length = max(max_length, len(char))
+
+        return max_length

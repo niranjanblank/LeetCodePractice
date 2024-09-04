@@ -52,4 +52,22 @@ def max_profit_2(prices):
     return max_profit
 
 
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        left, right = 0, 1
+        max_profit = 0
+
+        # assuming we bought at 0
+        while right < len(prices):
+
+            if prices[left] < prices[right]:
+                max_profit = max(max_profit, prices[right] - prices[left])
+            # if we find less price of price equal to curernt price, we change our prev position
+            else:
+                left = right
+            right += 1
+
+        return max_profit
+
+
 print(max_profit_2([3,8,1,2,3]))

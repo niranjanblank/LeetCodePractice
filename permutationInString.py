@@ -49,7 +49,9 @@ def checkInclusion(s1,s2):
         # Add the new character to the current window
         count_s2[s2[i]] = count_s2.get(s2[i], 0) + 1
         # Remove the character that's no longer in the window
+        # i.e. remove the char that was len(s1) steps before
         count_s2[s2[i - len(s1)]] -= 1
+        # if the item isnt in the hashmap anymore, delete it from hashmap
         if count_s2[s2[i - len(s1)]] == 0:
             count_s2.pop(s2[i-len(s1)])
 

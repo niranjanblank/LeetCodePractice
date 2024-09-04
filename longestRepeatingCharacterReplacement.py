@@ -64,4 +64,77 @@ def characterReplacement2(s,k):
             left+=1
         res = max(res, right - left + 1)
     return res
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        left = 0
+        # to store the counts of the letters in our current window
+        counts = {}
+
+        max_length = 0
+
+        for right in range(len(s)):
+
+            counts[s[right]] = counts.get(s[right],0) + 1
+
+            if (right-left+1) - max(counts.values()) > k:
+                # if the number of time we can replace the minimum occuring element exceeds k, we remove it from our window,
+                counts[s[left]]-=1
+                # increase left value to change our window size
+                left += 1
+            # calculate the length of substring
+            max_length = max(right - left + 1, max_length)
+
+        return max_length
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        left = 0
+        # to store the counts of the letters in our current window
+        counts = {}
+
+        max_length = 0
+        max_freq = 0
+        for right in range(len(s)):
+
+            counts[s[right]] = counts.get(s[right],0) + 1
+            # count of most freq at any time
+            max_freq = max(max_freq,counts[s[right]])
+            if (right-left+1) - max(counts.values()) > k:
+                # if the number of time we can replace the minimum occuring element exceeds k, we remove it from our window,
+                counts[s[left]]-=1
+                # increase left value to change our window size
+                left += 1
+            # calculate the length of substring
+            max_length = max(right - left + 1, max_length)
+
+        return max_length
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        left = 0
+        # to store the counts of the letters in our current window
+        counts = {}
+
+        max_length = 0
+
+        max_freq = 0
+
+        for right in range(len(s)):
+
+            counts[s[right]] = counts.get(s[right],0) + 1
+
+            # count of most freq at any time
+            max_freq = max(max_freq,counts[s[right]])
+
+            while (right-left+1) - max(counts.values()) > k:
+                # if the number of time we can replace the minimum occuring element exceeds k, we remove it from our window,
+                counts[s[left]]-=1
+                # increase left value to change our window size
+                left += 1
+            # calculate the length of substring
+            max_length = max(right - left + 1, max_length)
+
+        return max_length
+
 print(chararcterReplacement(s = "AABABBA", k = 1))

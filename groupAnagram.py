@@ -24,7 +24,7 @@ Output: [["a"]]
 
 """
 
-
+#O(n⋅klogk)
 def groupAnagrams(strs):
     # Dictionary to hold the groups of anagrams
     anagrams = {}
