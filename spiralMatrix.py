@@ -59,3 +59,45 @@ class Solution:
             left += 1
 
         return res
+
+
+class Solution2:
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        res = []
+
+        # setting the boundaries
+        left, right = 0, len(matrix[0]) - 1
+        top, bottom = 0, len(matrix) - 1
+
+        while left <= right and top <= bottom:
+            # transverse left to right
+            for i in range(left, right + 1):
+                res.append(matrix[top][i])
+            # this means the top row has been completed
+            # so update the top pointer
+            top += 1
+
+            # transverse top to bottom
+            for i in range(top, bottom + 1):
+                res.append(matrix[i][right])
+            # this means rightmost column has been completed
+            # so update right pointer
+            right -= 1
+
+            if not (left <= right and top <= bottom):
+                break
+
+            # transverse right to left
+            for i in range(right, left - 1, -1):
+                res.append(matrix[bottom][i])
+
+            # this means bottom column has been completed
+            # so update bottom pointer
+            bottom -= 1
+
+            for i in range(bottom, top - 1, -1):
+                res.append(matrix[i][left])
+
+            left += 1
+
+        return res
