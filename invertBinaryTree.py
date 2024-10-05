@@ -18,6 +18,29 @@ def invertBinarytree(root):
     return root
 
 
+class SolutionBFS:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+        # if we envounter tree with none, we return None
+        if not root:
+            return None
+
+
+        # BFS is implemented using queue
+        # we visit each nodes level by level
+        queue = deque([root])
+
+        while queue:
+            current = queue.popleft()
+
+            current.left, current.right = current.right, current.left
+
+            # add the left or right node to queue if they arent none
+            if current.left: queue.append(current.left)
+            if current.right: queue.append(current.right)
+
+        return root
+
 if __name__=="__main__":
     root = TreeNode(1)
     root.left = TreeNode(2)

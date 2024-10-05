@@ -19,6 +19,26 @@ def maxDepth(root):
         # The maximum depth of the current tree is the max of left and right depths plus one for the current node.
         return max(left_depth, right_depth) + 1
 
+
+class SolutionBFS:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if root is None:
+            return 0
+
+        queue = deque([root])
+        depth = 0
+
+        while queue:
+            depth += 1
+            length = len(queue)
+            while length > 0:
+                current = queue.popleft()
+                if current.left: queue.append(current.left)
+                if current.right: queue.append(current.right)
+                length -= 1
+
+        return depth
+
 # Example usage:
 
 # Constructing the binary tree from the given example:
