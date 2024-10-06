@@ -37,8 +37,8 @@ s[i] is '(', ')' or '*'.
 
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        # indicates the minimum possible number of left parenthesis\
-        # decreses when "*" or ")" is encountered
+        # indicates the minimum possible number of left parenthesis
+        # decrease when "*" or ")" is encountered
         left_min = 0
         # indicates the maximum possible number of left parenthesis
         left_max = 0
