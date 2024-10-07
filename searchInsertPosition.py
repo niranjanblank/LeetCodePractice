@@ -47,5 +47,5 @@ class Solution:
             elif target > nums[mid]:
                 left = mid + 1
 
-        # but if we cannot find the target, the position to insert would be right+1
-        return right+1
+        # but if we cannot find the target, the position to insert would be left
+        return left
