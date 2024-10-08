@@ -62,3 +62,4 @@ class Solution:
                 row += 1  # Move down to the next row to check larger elements
 
         return total_negatives
+
