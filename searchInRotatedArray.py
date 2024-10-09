@@ -96,5 +96,36 @@ class Solution:
 
         return -1
 
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left,right = 0 , len(nums)-1
+        while left<=right:
+            mid = (left+right)//2
+            if nums[mid] == target:
+                return mid
+            if nums[left] <= nums[mid]:
+                # we are in left sorted array
+                if nums[left] <= target < nums[mid]:
+                    # target is in left sorted array so we move right pointer
+                    right = mid - 1
+                else:
+                    # we reach here if target is less than nums[left], neaning we have to go
+                    # in the right sorted array, so we move left pointer
+                    # of ig the target isnt in the left sorted array, we have to go to
+                    # the right sorted array
+                    left = mid + 1
+            else:
+                # we are in right sorted array
+                if  nums[mid] < target <= nums[right]:
+                    # target is in right sorted array so we move left pointer
+                    left = mid + 1
+                else:
+                    # we reach here if target is greater than right, meaning we have to go
+                    # in the left sorted array so we move the right pointer
+                    # or if the target isnt in the right sorted array, we have to go to
+                    # the left sorted array
+                    right = mid -1
+        return -1
+
 print(search(nums = [4,5,6,7,0,1,2], target = 0))
 print(search(nums = [4,5,6,7,0,1,2], target = 3))
