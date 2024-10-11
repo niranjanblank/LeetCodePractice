@@ -35,6 +35,8 @@ class Solution:
 
         for i in range(len(nums)):
             # creating a monotonic stack that will hold indices
+
+
             # where the values are in decreasing order of the values stored in nums
             if not stack or nums[stack[-1]] > nums[i]:
                 stack.append(i)
