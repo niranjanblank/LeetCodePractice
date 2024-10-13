@@ -42,10 +42,19 @@ class Solution:
             m = (l+r)//2
 
             # n - m gives number of papers with at least m citations
-            if citations[m] == n - m:
+            # m gives the current index of the citations
+            # since there are n elements in the sorted list, and the list is 0-indexed
+            # the number of papers with at least citations[m] citations will be
+            # n - m (this will include all the elements including element at m till the end)
+           if citations[m] == n - m:
                 return n - m
             elif citations[m] < n - m:
                 l = m + 1
             else:
                 r = m - 1
+        
+            #  when no exact match is found, and the binary search terminates
+            #  we use n - l to compute the h-index. 
+            # after binary search l will be positioned where
+            # at least n - l papers have more than citations[l] citations
         return n - l
