@@ -42,43 +42,38 @@ nums2.length == n
 -109 <= nums1[i], nums2[j] <= 109
 """
 
-def merge(nums1, m, nums2, n):
-    # Initialize pointers:
-    # p is the pointer for the position to insert in nums1, starting from the end.
-    p = m + n - 1
-    # p2 is the pointer for the current element in nums2.
-    p2 = n - 1
-    # p1 is the pointer for the current element in nums1 that needs to be compared.
-    p1 = m - 1  # Correctly point to the last non-placeholder element in nums1.
-
-    # While there are elements to compare in both nums1 and nums2.
-    while p1 >= 0 and p2 >= 0:
-        # If the current element in nums1 is larger than in nums2,
-        # place it at the current position pointed by p in nums1.
-        if nums1[p1] > nums2[p2]:
-            nums1[p] = nums1[p1]
-            p1 -= 1  # Move the nums1 pointer to the left.
-        else:
-            # Otherwise, the current element in nums2 is larger,
-            # so place it at the current position in nums1.
-            nums1[p] = nums2[p2]
-            p2 -= 1  # Move the nums2 pointer to the left.
-        p -= 1  # Move the insert position in nums1 to the left.
-
-    # If there are remaining elements in nums2 (meaning nums1 elements are exhausted),
-    # copy them directly to nums1. This loop is only needed if nums2 has smaller elements left.
-    while p2 >= 0:
-        nums1[p] = nums2[p2]
-        p2 -= 1  # Move the nums2 pointer to the left.
-        p -= 1  # Move the insert position in nums1 to the left.
-
-
-def merge_bad(nums1,m,nums2,n):
-    p = m
-
-    for item in nums2:
-        nums1[p] = item
-        p = p + 1
-    nums1.sort()
-    print(nums1)
-merge_bad(nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3)
+class Solution1:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+        """
+        Do not return anything, modify nums1 in-place instead.
+        """
+        # time complexity = O(m+n)
+        # space complexity = O(m+n)
+        temp = []
+        nums1_index = 0
+        nums2_index = 0
+       
+        # this loop will end when either all the elements of num1 or nums2 are processed
+        # loop 1
+        while nums1_index < m and nums2_index < n:
+            if nums1[nums1_index] <= nums2[nums2_index]:
+                temp.append(nums1[nums1_index])
+                nums1_index += 1
+            else:
+                temp.append(nums2[nums2_index])
+                nums2_index += 1
+            
+        # if the loop 1 ended will all the elements of nums2 being processed, we need to add the remaining
+        # items of nums1 in the temp
+        while nums1_index < m:
+            temp.append(nums1[nums1_index])
+            nums1_index += 1
+        # if the loop 1 ended will all the elements of nums1 being processed, we need to add the remaining
+        # items of nums2 in the temp
+        while nums2_index < n:
+            temp.append(nums2[nums2_index])
+            nums2_index += 1
+        
+        # writing the temp data to nums1
+        for i in range(len(nums1)):
+            nums1[i] = temp[i]
