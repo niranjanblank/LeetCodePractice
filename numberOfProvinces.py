@@ -60,3 +60,36 @@ class Solution:
                 provinces+=1
 
         return provinces
+
+
+class Solution2:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        # in this method we will keep visited_cities list
+
+        visited_cities = [False]*len(isConnected)
+        province = 0
+
+        def dfs(city):
+            # mark the city as visited
+            visited_cities[city] = True
+            # in the dfs function we will go through all the adjacent cities to the city
+            for adj_city in range(len(isConnected)):
+                # if there is a connection between adj_city and city, and adj_city isnt visited,
+                # we visit adj_city and find all the cities connected to them using dfs and visit them
+                if isConnected[city][adj_city] and not visited_cities[adj_city]:
+                    dfs(adj_city)
+                # checking if this city is connected to the current city or if its alrerady visited
+
+        # going through all the visited_cities,
+        for city in range(len(isConnected)):
+            # if the city isnt visited, it means its in a new province,
+            # so we will run dfs to find all the cities that are connected to this city 
+            # and marking them as visited, when we go through the city again, we would know its already 
+            # part of a province
+
+            # for the first item in the visited_cities, it will be false, so we will run dfs to find all other cities that belong to this province
+            if not visited_cities[city]:
+                dfs(city)
+                province+=1
+
+        return province
