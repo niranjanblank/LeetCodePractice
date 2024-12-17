@@ -62,7 +62,7 @@ class Solution:
         return provinces
 
 
-class Solution2:
+class Solution1:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
         # in this method we will keep visited_cities list
 
@@ -93,3 +93,50 @@ class Solution2:
                 province+=1
 
         return province
+
+
+
+# union find Solution
+class UnionFind():
+    def __init__(self,n):
+        self.root = [i for i in range(n)]
+        self.rank = [1]*n
+
+    def find(self, x):
+        if x == self.root[x]:
+            return x
+        self.root[x] = self.find(self.root[x])
+        return self.root[x]
+
+    def union(self,x,y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x != root_y:
+            if self.rank[root_x] > self.rank[root_y]:
+                self.root[root_y] = root_x
+            elif self.rank[root_y] > self.rank[root_x]:
+                self.root[root_x] = root_y
+            else:
+                self.root[root_y] = root_x
+                self.rank[root_x]+=1
+    
+    def connected(self,x,y):
+        return self.find(x) == self.find(y)
+
+class SolutionUnionFind:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        # in this method we will go keep and visited_cities list
+    
+        n = len(isConnected)
+        union_find = UnionFind(n)
+        # initially, we assume there are n provinces, we will reduce the number of provinces 
+        # if we find a city is already in the province
+        provinces = n
+        # iterating through isConnected to perform union, and find the provinces
+        for i in range(n):
+            for j in range(n):
+                if isConnected[i][j] and not union_find.connected(i,j):
+                    union_find.union(i,j)
+                    provinces-=1
+        
+        return provinces
