@@ -55,8 +55,7 @@ class Solution:
 
             for neigh in adj_list[node]:
                 dfs(neigh)
-        
-            curr_path.pop()
+                curr_path.pop()
         dfs(0)
 
       
