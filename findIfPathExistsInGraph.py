@@ -64,6 +64,29 @@ class SolutionRecursiveDFS:
         return dfs(source)
 
 
+class SolutionIterativeDFS:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        # Create adjacency list
+        adj_list = defaultdict(list)
+        for edge in edges:
+            adj_list[edge[0]].append(edge[1])
+            adj_list[edge[1]].append(edge[0])
+        
+        visited = set()
+        stack = []
+        stack.append(source)
+
+        while stack:
+            node = stack.pop()
+            if node == destination:
+                return True
+            if node not in visited:
+                visited.add(node)
+                stack.extend(adj_list[node])
+
+        return False
+            
+
 class UnionFind:
     def __init__(self,n):
         self.rank = [1]*n
