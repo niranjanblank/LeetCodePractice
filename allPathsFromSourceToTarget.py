@@ -36,7 +36,9 @@ The input graph is guaranteed to be a DAG.
 
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        #Time Complexity: O(V+E)
+        # For a DAG, there could be at most 2^(V-1) - 1 possible paths to go fromm starting vertex to target vertex
+        # We need O(V) to build each such paths. So overall time complexity will be O(2^V.V)
+        #Time Complexity: O(2^V.V)
         #Space Complexity: O(V+E)
         adj_list = defaultdict(list)
         end = len(graph) - 1
@@ -44,15 +46,9 @@ class Solution:
             adj_list[i].extend(nodes)
         
         paths = []
-        # using visited to decrease the time complexity, as the search in set is just O(1)
-        visited = set()
         curr_path = []
 
         def dfs(node):
-            # 
-            if node in visited:
-               return
-            visited.add(node)
             curr_path.append(node)
             if node == end:
                 paths.append(curr_path.copy())
@@ -60,7 +56,6 @@ class Solution:
             for neigh in adj_list[node]:
                 dfs(neigh)
         
-            visited.remove(node)
             curr_path.pop()
         dfs(0)
 
