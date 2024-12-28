@@ -127,5 +127,38 @@ class Solution:
                     right = mid -1
         return -1
 
+
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        left,right = 0 , len(nums)-1
+        
+        # finding the pivot elemtnt
+        while left <= right:
+            m = (left+right)//2
+            if nums[m] > nums[-1]:
+                left = m + 1
+            else:
+                right = m - 1
+
+        def binarySearch(left_boundary, right_boundary, target):
+            left, right = left_boundary, right_boundary
+            while left <= right:
+                mid = (left + right) // 2
+                if nums[mid] == target:
+                    return mid
+                elif nums[mid] > target:
+                    right = mid - 1
+                else:
+                    left = mid + 1
+            return -1
+
+        # binary search on left side
+        answer = binarySearch(0,left-1,target)
+
+        if answer  != -1:
+            return answer
+        
+        return binarySearch(left, len(nums)-1, target)
+
 print(search(nums = [4,5,6,7,0,1,2], target = 0))
 print(search(nums = [4,5,6,7,0,1,2], target = 3))
