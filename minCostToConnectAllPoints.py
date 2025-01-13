@@ -81,4 +81,71 @@ class Solution1:
                     # add it to minH to get the min cost in next loop
                     heappush(minH,[neigh_cost, neigh_node])
 
-        return res            
+        return res           
+
+
+
+class UnionFind:
+    def __init__(self,n):
+        self.rank = [1]*n
+        self.root = [i for i in range(n)]
+
+    def find(self,x):
+        if x!= self.root[x]:
+            self.root[x] = self.find(self.root[x])
+        return self.root[x]
+
+    def union(self,x,y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x == root_y:
+            return False
+        if root_x != root_y:
+            if self.rank[root_x] > self.rank[root_y]:
+                self.root[root_y] = root_x
+            elif self.rank[root_y] > self.rank[root_x]:
+                self.root[root_x] = root_y
+            else:
+                self.root[root_y] = root_x
+                self.rank[root_x] += 1
+
+        return True
+
+    def connected(self, x,y):
+        return self.find(x) == self.find(y)
+
+class Solution:
+    def minCostConnectPoints(self, points: List[List[int]]) -> int:
+        # Time: O(n^2logn)
+        # Space: O(n^2)
+        # Using kruskals algorrithm
+        #num of nodes
+        N = len(points)
+        # stores distance of nodes frorm each otherr
+        distances = [] # (dist, point_a, point_b)
+
+        connected_points = set()
+
+        for i in range(N):
+            x1,y1 = points[i]
+            # we start j from i+1, to not include itself
+            for j in range(i+1,N):
+                x2, y2 = points[j]
+                # calculate the manhattan dist
+                dist = abs(x1-x2) + abs(y1-y2)
+                # adding this to the distances
+                distances.append((dist,i,j))
+
+        distances = sorted(distances)
+        # union find for cycle detection
+        uf = UnionFind(len(points))
+        cost = 0
+        for node in distances:
+            # if we dont form cycle, we connect the nodes and add cost
+            if not uf.connected(node[1],node[2]):
+                cost+=node[0]
+                uf.union(node[1],node[2])
+          
+    
+        return cost
+
