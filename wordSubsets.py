@@ -46,7 +46,7 @@ All the strings of words1 are unique.
 class Solution:
     def wordSubsets(self, words1: List[str], words2: List[str]) -> List[str]:
         #Time Complexity: O(mo+np+mu)
-        # Space Complexity: O(mo + u)
+        # Space Complexity:O(mo + u)
 
         words1_dict = defaultdict(dict)
         words2_dict = defaultdict(int)
@@ -71,7 +71,7 @@ class Solution:
             includes = True
             for char,freq in words2_dict.items():
                 # if for any word, we dont have equal or greater count for rerspective char, it wont be included
-                # e.g amazon{a:2,m:1,z:1,o:1,n:1}, aaan:{a:3,t:1} 
+                # e.g amazon{a:2,m:1,z:1,o:1,n:1}, aaan:{a:3,n:1} 
                 # here amazon has 2 a, but aaan has 3 a, so if we get such case, it wont be included in the result
                 if words1_dict[w1].get(char,0) < freq:
                     includes = False
