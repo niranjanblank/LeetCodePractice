@@ -39,7 +39,7 @@ Constraints:
 0 <= arr[i] < arr.length
 0 <= start < arr.length
 """
-class Solution:
+class SolutionBFS:
     def canReach(self, arr: List[int], start: int) -> bool:
         # Time Complexity : O(n)
         # Space Complexirt : O(n)
@@ -66,3 +66,27 @@ class Solution:
                     visited.add(right)
             
         return False
+
+class SolutionDFS:
+    def canReach(self, arr: List[int], start: int) -> bool:
+        # Time Complexity : O(n)
+        # Space Complexirt : O(n)
+
+        visited = set()
+        self.res = False
+        def dfs(index):
+            
+            if self.res or (index < 0 or index >= len(arr)) or (index in visited):
+                return
+            if arr[index] == 0:
+                self.res = True        
+                return 
+            
+           
+            visited.add(index)
+           
+            dfs(index - arr[index])
+            dfs(index + arr[index])
+        
+        dfs(start)
+        return self.res
