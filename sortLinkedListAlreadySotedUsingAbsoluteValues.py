@@ -62,11 +62,10 @@ class Solution:
                 # and set the head to curr
                 # set the currr back to temp to continue traversing the linked list
                 temp = curr.next
-                prev.next = temp  # Remove `curr` from its position
-                curr.next = head  # Insert `curr` at the front
-                head = curr  # Update head
+                prev.next = temp 
+                curr.next = head  
+                head = curr  
 
-                # Move `curr` forward correctly to prevent infinite loop
                 curr = temp  
 
             else:
@@ -75,3 +74,25 @@ class Solution:
 
      
         return head
+
+class Solution:
+    def sortLinkedList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # Time Complexity: O(nlogn)
+        # Space Complexity: O(n)
+        values = []
+
+        while head:
+            values.append(head.val)
+            head = head.next
+
+        values = sorted(values)
+
+        dummy = ListNode()
+        current = dummy
+
+        for item in values:
+            current.next = ListNode(item)
+            current = current.next
+
+
+        return dummy.next
