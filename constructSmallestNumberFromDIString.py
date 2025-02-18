@@ -55,3 +55,30 @@ class Solution:
                 res.append(str(item))
 
         return "".join(res)
+
+class Solution:
+    def smallestNumber(self, pattern: str) -> str:
+        # Time Complexity: O(n!)
+        # Space Complexity: O(n!)
+        n = len(pattern) + 1 # length of pattern
+        used = [False] * (n+1)
+        result = []
+        def backtrack(path):
+            # TODO: add base case to return valid path
+            if len(path) == n:
+                result.append("".join(map(str, path)))
+                return
+        # generate the path
+            for i in range(1,n+1):
+                if used[i]:
+                    continue
+                
+                if not path or (pattern[len(path)-1] == "I" and path[-1] < i) or (pattern[len(path)-1]== "D" and path[-1]>i):
+                    used[i] = True
+                    path.append(i)
+                    backtrack(path)
+                    path.pop()
+                    used[i] = False
+
+        backtrack([])
+        return min(result)
